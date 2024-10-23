@@ -6,7 +6,6 @@ from tkinter import ttk, filedialog, messagebox
 
 excel_file_path = None
 
-
 # Funciones para el menú
 
 def open_file():
@@ -26,9 +25,8 @@ def open_file():
         dispplay_data(file_path)
     else:
         messagebox.showerror("Error", "No se ha seleccionado ningún archivo")
-    
 
-
+# Mostrar datos
 
 def dispplay_data(excel_file_path):
     try:
@@ -40,9 +38,7 @@ def dispplay_data(excel_file_path):
         for item in tree.get_children():
             tree.delete(item)
 
-        # Configurar las columnas del Treeview en función del Excel
         tree["columns"] = list(df.columns)
-        tree["show"] = "headings"  # Solo mostrar encabezados
 
         # Definir encabezados y ancho de las columnas
         for col in df.columns:
@@ -70,12 +66,11 @@ def create_treeview():
     tree.configure(yscroll=scrollbar_y.set)
     return(tree)
 
-
 # Crear ventanta
 
 root = tk.Tk()
 root.geometry("1280x720")
-root.title("Aplicación de Vinos")
+root.title("Gestor de Vinos")
 
 # Barra de menú
 
@@ -89,4 +84,5 @@ menubar.add_cascade(label="Archivo", menu=file_menu)
 root.config(menu=menubar)
 
 # Ejecutar la aplicación
+
 root.mainloop()
