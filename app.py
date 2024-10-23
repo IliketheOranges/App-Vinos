@@ -32,6 +32,9 @@ def open_file():
 
 def dispplay_data(excel_file_path):
     try:
+
+        tree = create_treeview()
+
         df = pd.read_excel(excel_file_path)
 
         for item in tree.get_children():
@@ -53,11 +56,25 @@ def dispplay_data(excel_file_path):
     except Exception as e:
         messagebox.showerror("Error", f"No se ha podido leer correctamente: {e}")
 
+# Crear TreeView
+
+def create_treeview():
+    frame = tk.Frame(root)
+    frame.pack(fill="both", expand=True)
+
+    tree = ttk.Treeview(frame)
+    tree.pack(side="left", fill="both", expand=True)
+
+    scrollbar_y = ttk.Scrollbar(frame, orient="vertical", command=tree.yview)
+    scrollbar_y.pack(side="right", fill="y")
+    tree.configure(yscroll=scrollbar_y.set)
+    return(tree)
+
 
 # Crear ventanta
 
 root = tk.Tk()
-root.geometry("900x540")
+root.geometry("1280x720")
 root.title("Aplicación de Vinos")
 
 # Barra de menú
@@ -70,20 +87,6 @@ file_menu = tk.Menu(menubar, tearoff=0)
 file_menu.add_command(label="Abrir archivo", command=open_file)
 menubar.add_cascade(label="Archivo", menu=file_menu)
 root.config(menu=menubar)
-
-
-# Tabla de display
-
-frame = tk.Frame(root)
-frame.pack(fill="both", expand=True)
-
-tree = ttk.Treeview(frame)
-tree.pack(side="left", fill="both", expand=True)
-
-scrollbar_y = ttk.Scrollbar(frame, orient="vertical", command=tree.yview)
-scrollbar_y.pack(side="right", fill="y")
-tree.configure(yscroll=scrollbar_y.set)
-
 
 # Ejecutar la aplicación
 root.mainloop()
