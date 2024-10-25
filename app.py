@@ -31,14 +31,15 @@ def open_file():
 def dispplay_data(excel_file_path):
     try:
 
-        tree = create_treeview()
-
         df = pd.read_excel(excel_file_path)
+
+        tree = create_treeview()
 
         for item in tree.get_children():
             tree.delete(item)
 
         tree["columns"] = list(df.columns)
+        tree["show"] = "headings" 
 
         # Definir encabezados y ancho de las columnas
         for col in df.columns:
