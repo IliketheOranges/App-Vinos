@@ -35,16 +35,23 @@ def dispplay_data(excel_file_path):
 
         tree = create_treeview()
 
+        #Filtramos los tipos datetime y nulos
+        for col in df.columns:
+            if pd.api.types.is_datetime64_any_dtype(df[col]):
+                df[col] = df[col].dt.strftime('%Y-%m-%d')
+        
+
         for item in tree.get_children():
             tree.delete(item)
 
         tree["columns"] = list(df.columns)
         tree["show"] = "headings" 
 
-        # Definir encabezados y ancho de las columnas
+
         for col in df.columns:
             tree.heading(col, text=col)  
             tree.column(col, width=100) 
+
 
         # Agregar las filas al Treeview
         for index, row in df.iterrows():
